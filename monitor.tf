@@ -1,15 +1,17 @@
-resource "datadog_monitor" "high_cpu" {
-  name    = "High CPU usage alert"
-  type    = "metric alert"
-  query   = "avg(last_5m):avg:system.cpu.user{*} > 80"
-  message = "Warning: High CPU usage on {{host.name}}"
+resource "datadog_monitor" "foo" {
+  name               = "Name for monitor foo"
+  type               = "metric alert"
+  message            = "Monitor triggered. Notify: @hipchat-channel"
+  escalation_message = "Escalation message @pagerduty"
+
+  query = "avg(last_1h):avg:aws.ec2.cpu{environment:foo,host:foo} by {host} > 4"
 
   monitor_thresholds {
-    warning  = 70
-    critical = 80
+    warning  = 2
+    critical = 4
   }
 
-  notify_no_data    = true
-  no_data_timeframe = 10
-  tags              = ["env:development", "team:devops"]
+  include_tags = true
+
+  tags = ["foo:bar", "team:fooBar"]
 }

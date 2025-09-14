@@ -1,30 +1,28 @@
-resource "datadog_dashboard" "dashboard" {
-  title       = "Example Dashboard"
-  description = "An example dashboard created with Terraform"
+resource "datadog_dashboard" "example_dashboard" {
+  title       = "Treemap Custom Links Test"
   layout_type = "ordered"
 
   widget {
-    definition {
-      treemap_definition {
-        request {
-          query {
-            metric_query {
-              query = "avg:system.cpu.user{*} by {host}"
-              name  = "cpu_usage"
-            }
+    treemap_definition {
+      request {
+        query {
+          metric_query {
+            query = "avg:system.cpu.user{*} by {host}"
+            name  = "cpu_usage"
           }
-          formula {
-            formula = "cpu_usage"
-            alias   = "CPU Usage by Host"
-          }
+        }
+        formula {
+          formula = "cpu_usage"
         }
       }
-
-      timeseries_definition {
-        requests {
-          q = "avg:system.cpu.user{*}"
-        }
-        title = "CPU Usage"
+      title = "Host CPU Usage"
+      custom_links {
+        label = "View Host Details"
+        #link  = "https://app.datadoghq.com/infrastructure/host/{{host}}"  # Correct template variable syntax
+      }
+      custom_links {
+        label = "View Documentation"
+        #link  = "https://docs.example.com/monitoring"  # Static URL example
       }
     }
   }
