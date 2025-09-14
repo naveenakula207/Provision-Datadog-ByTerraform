@@ -4,11 +4,13 @@ resource "datadog_dashboard" "example" {
   layout_type = "ordered"
 
   widget {
-    timeseries_definition {
-      request {
-        query = "avg:system.cpu.user{*}"
+    definition {
+      timeseries_definition {
+        requests {
+          q = "avg:system.cpu.user{*}"
+        }
+        title = "CPU Usage"
       }
-      title = "CPU Usage"
     }
   }
 }
