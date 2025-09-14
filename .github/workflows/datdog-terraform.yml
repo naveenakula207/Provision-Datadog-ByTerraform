@@ -31,8 +31,8 @@ jobs:
 
       - name: Terraform Plan
         env:
-            DATADOG_API_KEY: ${{ secrets.DATADOG_API_KEY }}
-            DATADOG_APP_KEY: ${{ secrets.DATADOG_APP_KEY }}
+            TF_VAR_datadog_api_key: ${{ secrets.DATADOG_API_KEY }}
+            TF_VAR_datadog_app_key: ${{ secrets.DATADOG_APP_KEY }}
         run: terraform plan -input=false
 
       - name: Terraform Apply
