@@ -9,8 +9,8 @@ terraform {
 }
 
 provider "datadog" {
-  api_key = var.DATADOG_API_KEY
-  app_key = var.DATADOG_APP_KEY
+  api_key = ${{ secrets.DATADOG_API_KEY }}
+  app_key = ${{ secrets.DATADOG_APP_KEY }}
 }
 
 resource "datadog_monitor" "example_monitor" {
