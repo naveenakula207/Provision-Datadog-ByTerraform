@@ -4,7 +4,7 @@ resource "datadog_monitor" "high_cpu" {
   query   = "avg(last_5m):avg:system.cpu.user{*} > 80"
   message = "Warning: High CPU usage on {{host.name}}"
 
-  threshold {
+  monitor_thresholds {
     warning  = 70
     critical = 80
   }
